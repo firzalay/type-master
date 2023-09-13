@@ -3,12 +3,12 @@
 </script>
 
 <svelte:head>
-    <title>Sveltype</title>
+    <title>TypeMaster</title>
 </svelte:head>
 
 <div class="layout">
     <nav>
-        <h1>🔥 sveltype</h1>
+        <h1>👑 TypeMaster</h1>
     </nav>
 
     <main>
