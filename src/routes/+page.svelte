@@ -79,7 +79,7 @@
 
     function checkLetter() {
         const currentLetter = words[wordIndex][letterIndex];
-
+        
         if (typedLetter === currentLetter) {
             letterEl.dataset.letter = "correct";
             increaseScore();
@@ -98,16 +98,17 @@
         letterIndex += 1;
     }
 
-
     function checkPrevLetter() {
         if (letterIndex > 0) {
             letterIndex -= 1; // Move back one letter
             letterEl = wordsEl.children[wordIndex].children[letterIndex]; // Update current letter element
-            typedLetter = ""; // Reset typed letter
-            letterEl.dataset.letter = ""; // Reset color
+            console.log(letterEl);
+            typedLetter = ""; 
+            letterEl.dataset.letter = ""; 
         }
 
-        moveCaret();
+        moveBackspaceCaret();
+
     }
 
     function nextWord() {
@@ -127,8 +128,6 @@
         const wordsY = wordsEl.getBoundingClientRect().y;
         const wordY = wordEl.getBoundingClientRect().y;
 
-    
-
         if (wordY > wordsY) {
             wordEl.scrollIntoView({
                 block: "center",
@@ -144,6 +143,12 @@
         const offset = 4;
         caretEl.style.top = `${letterEl.offsetTop + offset}px`;
         caretEl.style.left = `${letterEl.offsetLeft + letterEl.offsetWidth}px`;
+    }
+
+    function moveBackspaceCaret() {
+        const offset = 4;
+        caretEl.style.top = `${letterEl.offsetTop + offset}px`;
+        caretEl.style.left = `${letterEl.offsetLeft}px`;
     }
 
     function startGame() {
@@ -229,7 +234,7 @@
                     </span>
                 {/each}
 
-                <div bind:this={caretEl} class="caret" />
+                <div bind:this={caretEl} class="caret" /> 
             </div>
         {/key}
 
