@@ -98,6 +98,18 @@
         letterIndex += 1;
     }
 
+
+    function checkPrevLetter() {
+        if (letterIndex > 0) {
+            letterIndex -= 1; // Move back one letter
+            letterEl = wordsEl.children[wordIndex].children[letterIndex]; // Update current letter element
+            typedLetter = ""; // Reset typed letter
+            letterEl.dataset.letter = ""; // Reset color
+        }
+
+        moveCaret();
+    }
+
     function nextWord() {
         const isNotFirstLetter = letterIndex !== 0;
         const isOneLetterWord = words[wordIndex].length === 1;
@@ -115,7 +127,7 @@
         const wordsY = wordsEl.getBoundingClientRect().y;
         const wordY = wordEl.getBoundingClientRect().y;
 
-        // console.log({ wordsY, wordY });
+    
 
         if (wordY > wordsY) {
             wordEl.scrollIntoView({
@@ -178,7 +190,11 @@
                 nextWord();
             }
         }
-        
+
+        if (event.code === "Backspace") {
+            checkPrevLetter();
+        }
+
         if (game === "waiting for input") {
             startGame();
         }
