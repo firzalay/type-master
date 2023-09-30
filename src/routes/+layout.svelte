@@ -1,16 +1,16 @@
 <script>
-    import "../styles/app.scss";
+    import '../styles/app.scss';
+    
 </script>
 
 <svelte:head>
-    <title>TypeMaster</title>
+    <title>Welcome!</title>
 </svelte:head>
 
 <div class="layout">
     <nav>
-        <h1>👑 TypeMaster</h1>
+        <h1>👑 TypeMaster </h1>
     </nav>
-
     <main>
         <slot />
     </main>
@@ -31,4 +31,5 @@
         align-items: center;
         padding: 2rem;
     }
+
 </style>

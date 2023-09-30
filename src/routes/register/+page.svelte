@@ -1,31 +1,39 @@
 <script>
-    import { goto } from "$app/navigation";
+    import { goto } from '$app/navigation'
 
-    let email = "";
-    let password = "";
+    let name = ''
+    let email = ''
+    let password = ''
 
     const submit = async () => {
-        await fetch("http://localhost:8000/api/login", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            credentials: 'include',
+        await fetch('http://localhost:8000/api/register', {
+            method: 'POST',
+            headers: {'Content-Type' : 'application/json'},
             body: JSON.stringify({
+                name,
                 email,
-                password,
-            }),
+                password
+            })
         });
 
-        await goto("/main");
-    };
+        await goto('/');  
+    }
 </script>
 
+
 <form on:submit|preventDefault={submit} action="">
-    <h1>Login Form</h1>
+    <h1>Register Form</h1>
     <div class="main">
+        <div class="name">
+            <label for="">Name</label>
+            <input bind:value={name} type="name" name="" id="">
+        </div>
+
         <div class="email">
             <label for="">Email Address</label>
-            <input bind:value={email} type="email" name="" id="" />
+            <input bind:value={email} type="email" name="" id="">
         </div>
+
 
         <div class="password">
             <label for="">Password</label>
@@ -33,7 +41,7 @@
         </div>
     </div>
 
-    <p>Dont have an account? <a href="/register">Register First!</a></p>
+    <p>Already have an account? <a href="/">Login First!</a></p>
 
     <button type="submit">Submit</button>
 </form>
@@ -61,7 +69,7 @@
         color: white;
         padding: 10px;
         border-radius: 5px;
-        opacity: 1;
+        opacity: 1  ;
     }
 
     p {
