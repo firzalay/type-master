@@ -1,30 +1,32 @@
 <script>
-    import { goto } from '$app/navigation'
+    import { goto } from "$app/navigation";
 
-    let name = ''
-    let password = ''
+    let name = "";
+    let password = "";
 
+
+    
     const submit = async () => {
-        await fetch('http://localhost:8000/api/register', {
-            method: 'POST',
-            headers: {'Content-Type' : 'application/json'},
+        await fetch("http://localhost:8000/api/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
             body: JSON.stringify({
                 name,
-                password
-            })
+                password,
+            }),
         });
-
-        await goto('/login');  
-    }
+        
+        await goto("/");
+    };
 </script>
 
-
 <form on:submit|preventDefault={submit} action="">
-    <h1>Register Form</h1>
+    <h1>Login Form</h1>
     <div class="main">
         <div class="name">
             <label for="">Name</label>
-            <input bind:value={name} type="name" name="" id="">
+            <input bind:value={name} type="name" name="" id="" />
         </div>
 
         <div class="password">
@@ -33,7 +35,7 @@
         </div>
     </div>
 
-    <p>Already have an account? <a href="/">Login First!</a></p>
+    <p>Dont have an account? <a href="/register">Register First!</a></p>
 
     <button type="submit">Submit</button>
 </form>
@@ -61,7 +63,7 @@
         color: white;
         padding: 10px;
         border-radius: 5px;
-        opacity: 1  ;
+        opacity: 1;
     }
 
     p {
