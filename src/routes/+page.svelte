@@ -1,6 +1,6 @@
 <script>
     import { onMount } from "svelte";
-    import {authenticated} from '../stores/auth';
+    import { authenticated } from "../stores/auth";
     import { blur } from "svelte/transition";
     import { tweened } from "svelte/motion";
     import { goto } from "$app/navigation";
@@ -34,9 +34,9 @@
             credentials: "include",
         });
 
-        await goto('/');
+        await goto("/");
 
-        location.reload()
+        location.reload();
     };
 
     function resetGame() {
@@ -222,30 +222,28 @@
         }
     }
 
-    onMount(async () => { 
+    onMount(async () => {
         getWords(100);
         focusInput();
 
         try {
-        const response = await fetch("http://localhost:8000/api/user", {
-            headers: { "Content-Type": "application/json" },
-            credentials: "include",
-        });
+            const response = await fetch("http://localhost:8000/api/user", {
+                headers: { "Content-Type": "application/json" },
+                credentials: "include",
+            });
 
-        const content = await response.json();
+            const content = await response.json();
 
-        message = `Hello ${content.name}`;
-        authenticated.set(true);
-    }catch (e){
-        message = "You are not logged in"
-        authenticated.set(false);
-    }
+            message = `Hello ${content.name}`;
+            authenticated.set(true);
+        } catch (e) {
+            message = "You are not logged in";
+            authenticated.set(false);
+        }
     });
 
     let auth = false;
-    authenticated.subscribe(a => auth = a)
-
-    
+    authenticated.subscribe((a) => (auth = a));
 </script>
 
 <div class="layout">
@@ -254,13 +252,13 @@
             <h1>👑 TypeMaster</h1>
         </div>
         {#if auth}
-        <div class="nav-link">       
-            <button on:click={logout}>Logout</button>
-        </div>
+            <div class="nav-link">
+                <button on:click={logout}>Logout</button>
+            </div>
         {:else}
-        <div class="nav-link">       
-            <a href="/login">Login</a>
-        </div>
+            <div class="nav-link">
+                <a href="/login">Login</a>
+            </div>
         {/if}
     </nav>
     <main>
@@ -352,16 +350,16 @@
     }
 
     nav {
-       display: flex;
-       justify-content: space-between; 
+        display: flex;
+        justify-content: space-between;
     }
 
     .nav-link a {
-       color: var(--fg-200);
-       text-decoration: none;
-       font-size: 20px;
-       padding: 0 5px;
-       cursor: pointer;
+        color: var(--fg-200);
+        text-decoration: none;
+        font-size: 20px;
+        padding: 0 5px;
+        cursor: pointer;
     }
 
     .game {
@@ -455,5 +453,4 @@
     .user {
         margin: 60px 0;
     }
-
 </style>
