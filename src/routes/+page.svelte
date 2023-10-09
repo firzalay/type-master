@@ -218,7 +218,9 @@
     }
 
     function focusInput() {
-        inputEl.focus();
+        if (inputEl) {
+            inputEl.focus();
+        }
     }
 
     function handleKeyDown() {
@@ -239,6 +241,8 @@
         }
     }
 
+    let loading = true;
+
     onMount(async () => {
         getWords(100);
         focusInput();
@@ -258,6 +262,8 @@
         } catch (e) {
             message = "You are not logged in";
             authenticated.set(false);
+        } finally {
+            loading = false;
         }
     });
 
@@ -265,92 +271,97 @@
     authenticated.subscribe((a) => (auth = a));
 </script>
 
-<div class="layout">
-    <nav>
-        <div class="logo">
-            <h1>👑 TypeMaster</h1>
-        </div>
-        {#if auth}
-            <div class="nav-link">
-                <button on:click={logout}>Logout</button>
+{#if loading}
+    <p>Loading...</p>
+{:else}
+    <div class="layout">
+        <nav>
+            <div class="logo">
+                <h1>👑 TypeMaster</h1>
             </div>
-        {:else}
-            <div class="nav-link">
-                <a href="/login">Login</a>
+            {#if auth}
+                <div class="nav-link">
+                    <button on:click={logout}>Logout</button>
+                </div>
+            {:else}
+                <div class="nav-link">
+                    <a href="/login">Login</a>
+                </div>
+            {/if}
+        </nav>
+        <main>
+            <div class="user">
+                <h3>{message}</h3>
             </div>
-        {/if}
-    </nav>
-    <main>
-        <div class="user">
-            <h3>{message}</h3>
-        </div>
 
-        {#if game !== "game over"}
-            <div class="game" data-game={game}>
-                <input
-                    bind:this={inputEl}
-                    bind:value={typedLetter}
-                    on:input={updateGameState}
-                    on:keydown={handleKeyDown}
-                    class="input"
-                    type="text"
-                />
+            {#if game !== "game over"}
+                <div class="game" data-game={game}>
+                    <input
+                        bind:this={inputEl}
+                        bind:value={typedLetter}
+                        on:input={updateGameState}
+                        on:keydown={handleKeyDown}
+                        class="input"
+                        type="text"
+                    />
 
-                <div class="time">{seconds}</div>
+                    <div class="time">{seconds}</div>
 
-                {#key toggleReset}
-                    <div in:blur|local bind:this={wordsEl} class="words">
-                        {#each words as word}
-                            <span class="word">
-                                {#each word as letter}
-                                    <span class="letter">{letter}</span>
-                                {/each}
-                            </span>
-                        {/each}
+                    {#key toggleReset}
+                        <div in:blur|local bind:this={wordsEl} class="words">
+                            {#each words as word}
+                                <span class="word">
+                                    {#each word as letter}
+                                        <span class="letter">{letter}</span>
+                                    {/each}
+                                </span>
+                            {/each}
 
-                        <div bind:this={caretEl} class="caret" />
+                            <div bind:this={caretEl} class="caret" />
+                        </div>
+                    {/key}
+
+                    <div class="reset">
+                        <button on:click={resetGame} aria-label="reset">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                width="24"
+                                height="24"
+                                stroke-width="1.5"
+                                stroke="currentColor"
+                                fill="none"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M15 15l6-6m0 0l-6-6m6 6H9a6 6 0 000 12h3"
+                                />
+                            </svg>
+                        </button>
                     </div>
-                {/key}
-
-                <div class="reset">
-                    <button on:click={resetGame} aria-label="reset">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            width="24"
-                            height="24"
-                            stroke-width="1.5"
-                            stroke="currentColor"
-                            fill="none"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M15 15l6-6m0 0l-6-6m6 6H9a6 6 0 000 12h3"
-                            />
-                        </svg>
-                    </button>
                 </div>
-            </div>
-        {/if}
+            {/if}
 
-        {#if game === "game over"}
-            <div in:blur class="results">
-                <div>
-                    <p class="title">WPM</p>
-                    <div class="score">{Math.trunc($wordsPerMinute)}</div>
+            {#if game === "game over"}
+                <div in:blur class="results">
+                    <div>
+                        <p class="title">WPM</p>
+                        <div class="score">{Math.trunc($wordsPerMinute)}</div>
+                    </div>
+
+                    <div>
+                        <p class="title">Accuracy</p>
+                        <div class="score">{Math.trunc($accuracy)}%</div>
+                    </div>
+
+                    <button on:click={resetGame} class="play">Play Again</button
+                    >
                 </div>
-
-                <div>
-                    <p class="title">Accuracy</p>
-                    <div class="score">{Math.trunc($accuracy)}%</div>
-                </div>
-
-                <button on:click={resetGame} class="play">Play Again</button>
-            </div>
-        {/if}
-    </main>
-</div>
+            {/if}
+        </main>
+    </div>
+{/if}
 
 <style lang="scss">
     h1 {
