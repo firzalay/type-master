@@ -11,6 +11,11 @@
     box-sizing: border-box;
 }
 
+body {
+    background-color: hsl(220 20% 14%);
+}
+
+
 .containers {
     min-height: 100vh;
     display: flex;
