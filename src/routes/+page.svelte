@@ -156,10 +156,20 @@
         const isOneLetterWord = words[wordIndex].length === 1;
 
         if (isNotFirstLetter || isOneLetterWord) {
+            if (wordIndex < words.length) {
+                const wordEl = wordsEl.children[wordIndex];
+                const letterEls = wordEl.querySelectorAll(".letter");
+                for (let i = letterIndex; i < letterEls.length; i++) {
+                    letterEls[i].dataset.letter = "skipped";
+                }
+            }
+            
             wordIndex += 1;
             letterIndex = 0;
             increaseScore();
             moveCaretToNextWord();
+
+            
         }
     }
 
@@ -498,13 +508,17 @@
             color: var(--primary);
             opacity: 1;
         }
+
+        &[data-letter="skipped"] {
+            text-decoration: underline rgb(255, 55, 0);
+        }
     }
 
     .caret {
         position: absolute;
         height: 1.8rem;
         top: 0;
-        border-right: 3px solid #F8DE22;
+        border-right: 3px solid #f8de22;
         animation: caret 1s infinite;
         transition: all 0.2s ease;
     }
