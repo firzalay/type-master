@@ -1,7 +1,7 @@
 <script>
     import { onMount } from "svelte";
+    import "../../styles/leaderboard.css";
     import { scores } from "../../stores/scores"; 
-
     const fetchTopScores = async () => {
         try {
             const response = await fetch("http://localhost:8000/api/top-scores", {
@@ -24,12 +24,87 @@
     onMount(async () => {
         await fetchTopScores();
     });
-</script>
 
-<div>
-    <ul>
-        {#each $scores as score}
-            <li>{score.name} : {score.wpm_score} WPM</li>
-        {/each}
-    </ul>
-</div>
+    // style leaderboard end
+</script>
+<link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+<main class="table">
+    <section class="table__header">
+        <a href="/"><i class="bx bx-arrow-back"></i></a>
+        <h1 class="title">The Master 👑</h1>
+    </section>
+    <section class="table__body">
+        <table>
+            <thead>
+                <tr>
+                    <th> No </th>
+                    <th> Name </th>
+                    <th> WPM </th>
+                    <th> Accuracy</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td> 1 </td>
+                    <td> Zinzu Chan Lee</td>
+                    <td> Seoul </td>
+                    <td> 17 Dec, 2022 </td>     
+                </tr>
+                <tr>
+                    <td> 2 </td>
+                    <td> Jeet Saru </td>
+                    <td> Kathmandu </td>
+                    <td> 27 Aug, 2023 </td>
+                </tr>
+                <tr>
+                    <td> 3 </td>
+                    <td> Jeet Saru </td>
+                    <td> Kathmandu </td>
+                    <td> 27 Aug, 2023 </td>
+                </tr>
+                <tr>
+                    <td> 4 </td>
+                    <td> Jeet Saru </td>
+                    <td> Kathmandu </td>
+                    <td> 27 Aug, 2023 </td>
+                </tr>
+                <tr>
+                    <td> 5 </td>
+                    <td> Jeet Saru </td>
+                    <td> Kathmandu </td>
+                    <td> 27 Aug, 2023 </td>
+                </tr>
+                <tr>
+                    <td> 6 </td>
+                    <td> Jeet Saru </td>
+                    <td> Kathmandu </td>
+                    <td> 27 Aug, 2023 </td>
+                </tr>
+                <tr>
+                    <td> 7 </td>
+                    <td> Jeet Saru </td>
+                    <td> Kathmandu </td>
+                    <td> 27 Aug, 2023 </td>
+                </tr>
+                <tr>
+                    <td> 8 </td>
+                    <td> Jeet Saru </td>
+                    <td> Kathmandu </td>
+                    <td> 27 Aug, 2023 </td>
+                </tr>
+                <tr>
+                    <td> 9 </td>
+                    <td> Jeet Saru </td>
+                    <td> Kathmandu </td>
+                    <td> 27 Aug, 2023 </td>
+                </tr>
+                <tr>
+                    <td> 10 </td>
+                    <td> Jeet Saru </td>
+                    <td> Kathmandu </td>
+                    <td> 27 Aug, 2023 </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
