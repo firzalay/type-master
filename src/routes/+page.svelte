@@ -159,8 +159,18 @@
             wordIndex += 1;
             letterIndex = 0;
             increaseScore();
-            moveCaret();
-            caretEl.style.left = `${letterEl.offsetLeft + 30}px`;
+            moveCaretToNextWord();
+        }
+    }
+
+    function moveCaretToNextWord() {
+        if (wordIndex < words.length) {
+            const nextWordEl = wordsEl.children[wordIndex];
+            letterIndex = 0;
+            caretEl.style.top = `${
+                nextWordEl.children[letterIndex].offsetTop + 4
+            }px`;
+            caretEl.style.left = `${nextWordEl.children[letterIndex].offsetLeft}px`;
         }
     }
 
@@ -494,7 +504,7 @@
         position: absolute;
         height: 1.8rem;
         top: 0;
-        border-right: 1px solid red;
+        border-right: 3px solid #F8DE22;
         animation: caret 1s infinite;
         transition: all 0.2s ease;
     }
