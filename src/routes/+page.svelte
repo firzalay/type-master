@@ -116,13 +116,16 @@
     function checkLetter() {
         const currentLetter = words[wordIndex][letterIndex];
 
-        if (typedLetter === currentLetter) {
-            letterEl.dataset.letter = "correct";
-            increaseScore();
-        }
-
-        if (typedLetter !== currentLetter) {
+        if (/[A-Za-z0-9]/.test(typedLetter)) {
+            if (typedLetter === currentLetter) {
+                letterEl.dataset.letter = "correct";
+                increaseScore();
+            } else {
+                letterEl.dataset.letter = "incorrect";
+            }
+        } else {
             letterEl.dataset.letter = "incorrect";
+            letterEl.style.color = "red"; 
         }
     }
 
@@ -163,13 +166,11 @@
                     letterEls[i].dataset.letter = "skipped";
                 }
             }
-            
+
             wordIndex += 1;
             letterIndex = 0;
             increaseScore();
             moveCaretToNextWord();
-
-            
         }
     }
 
