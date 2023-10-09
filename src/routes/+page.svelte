@@ -136,9 +136,15 @@
 
     function checkPrevLetter() {
         if (letterIndex > 0) {
-            letterIndex -= 1; // Move back one letter
-            letterEl = wordsEl.children[wordIndex].children[letterIndex]; // Update current letter element
+            letterIndex -= 1;
+            letterEl = wordsEl.children[wordIndex].children[letterIndex];
             typedLetter = "";
+            letterEl.dataset.letter = "";
+        } else if (wordIndex > 0) {
+            wordIndex -= 1;
+            letterIndex = words[wordIndex].length - 1;
+            typedLetter = "";
+            letterEl = wordsEl.children[wordIndex].children[letterIndex];
             letterEl.dataset.letter = "";
         }
 
@@ -234,6 +240,7 @@
         }
 
         if (event.code === "Backspace") {
+            event.preventDefault();
             checkPrevLetter();
         }
 
