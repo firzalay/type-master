@@ -22,7 +22,7 @@
 
 <div class="container" id="container">
     <div class="form-container sign-in">
-        <form on:submit|preventDefault={submit} >
+        <form on:submit|preventDefault={submit}>
             <h1>Login Page</h1>
             <SvelteTypedJs
                 strings={["Type Master"]}
@@ -30,18 +30,25 @@
                 backSpeed="10"
                 loop="true"
             >
-                <p class="typing-animation">
-                    Become The Best <span class="typing" /> 👑
-                </p>
+                <div class="typing-animation">
+                    <p>
+                        Become The Best <span class="typing" /> 👑
+                    </p>
+                </div>
             </SvelteTypedJs>
             <input bind:value={name} type="name" placeholder="Name" />
-            <input bind:value={password} type="password" placeholder="Password" />
+            <input
+                bind:value={password}
+                type="password"
+                placeholder="Password"
+            />
             <button>Log In</button>
             <div class="register-p">
                 <p>
                     Dont have an account? <a href="/register">Register First!</a
                     >
                 </p>
+                <p>Or <a href="/">Just Play!</a></p>
             </div>
         </form>
     </div>
@@ -57,7 +64,7 @@
         font-family: "Lexand Deca", sans-serif;
     }
 
-    .sign-in p {
+    .typing-animation p {
         letter-spacing: 0.5px;
         padding: 20px 0;
         font-size: 20px;
@@ -146,6 +153,15 @@
         width: 50vw;
         height: 100vh;
         position: fixed;
+    }
+
+    .register-p {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 10px;
+        padding: 20px 0;
     }
 
     .register-p p {

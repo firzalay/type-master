@@ -283,11 +283,17 @@
             </div>
             {#if auth}
                 <div class="nav-link">
-                    <button on:click={logout}>Logout</button>
+                    <button on:click={logout}
+                        ><i
+                            class="fa-solid fa-right-to-bracket icon-flipped"
+                        /></button
+                    >
                 </div>
             {:else}
                 <div class="nav-link">
-                    <a href="/login">Login</a>
+                    <a href="/login"
+                        ><i class="fa-solid fa-right-to-bracket" /></a
+                    >
                 </div>
             {/if}
         </nav>
@@ -373,6 +379,13 @@
         letter-spacing: 2px;
     }
 
+    .icon-flipped {
+        transform: scaleX(-1);
+        -moz-transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
+        -ms-transform: scaleX(-1);
+    }
+    
     .layout {
         height: 100%;
         display: grid;
@@ -392,6 +405,10 @@
         font-size: 20px;
         padding: 0 5px;
         cursor: pointer;
+    }
+
+    .nav-link button {
+        font-size: 18px;
     }
 
     .game {
@@ -494,7 +511,6 @@
         height: 90px;
         -webkit-animation: spin 2s linear infinite;
         animation: spin 2s linear infinite;
-
     }
 
     .loader-layout {
@@ -502,10 +518,9 @@
         justify-content: center;
         align-items: center;
         height: 100vh;
-        flex-direction: column ;
+        flex-direction: column;
         gap: 2rem;
     }
-
 
     /* Safari */
     @-webkit-keyframes spin {
