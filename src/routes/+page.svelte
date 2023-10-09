@@ -256,7 +256,7 @@
 
             const content = await response.json();
 
-            message = `Hello ${content.name}`;
+            message = `Hello ${content.name} 🖐🏻`;
             authenticated.set(true);
 
             authenticatedUser.set(content);
@@ -284,6 +284,9 @@
             </div>
             {#if auth}
                 <div class="nav-link">
+                    <a href="/leaderboards">
+                        <i class="fa-solid fa-crown" />
+                    </a>
                     <button on:click={logout}
                         ><i
                             class="fa-solid fa-right-to-bracket icon-flipped"
@@ -292,6 +295,9 @@
                 </div>
             {:else}
                 <div class="nav-link">
+                    <a href="/leaderboards">
+                        <i class="fa-solid fa-crown" />
+                    </a>
                     <a href="/login"
                         ><i class="fa-solid fa-right-to-bracket" /></a
                     >
@@ -386,7 +392,7 @@
         -webkit-transform: scaleX(-1);
         -ms-transform: scaleX(-1);
     }
-    
+
     .layout {
         height: 100%;
         display: grid;
@@ -406,6 +412,13 @@
         font-size: 20px;
         padding: 0 5px;
         cursor: pointer;
+        opacity: 0.4;
+        transition: all 0.3s ease;
+    }
+
+    .nav-link a:hover {
+        cursor: pointer;
+        opacity: 1;
     }
 
     .nav-link button {
@@ -502,6 +515,11 @@
 
     .user {
         margin: 60px 0;
+    }
+
+    .user h3 {
+        font-family: "Lexand Deca", sans-serif;
+        font-size: 24px;
     }
 
     .loader {
