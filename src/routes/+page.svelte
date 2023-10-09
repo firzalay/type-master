@@ -218,7 +218,9 @@
     }
 
     function focusInput() {
-        inputEl.focus();
+        if (inputEl) {
+            inputEl.focus();
+        }
     }
 
     function handleKeyDown() {
@@ -239,6 +241,8 @@
         }
     }
 
+    let loading = true;
+
     onMount(async () => {
         getWords(100);
         focusInput();
@@ -256,8 +260,9 @@
 
             authenticatedUser.set(content);
         } catch (e) {
-            message = "You are not logged in";
             authenticated.set(false);
+        } finally {
+            loading = false;
         }
     });
 
@@ -265,92 +270,106 @@
     authenticated.subscribe((a) => (auth = a));
 </script>
 
-<div class="layout">
-    <nav>
-        <div class="logo">
-            <h1>👑 TypeMaster</h1>
-        </div>
-        {#if auth}
-            <div class="nav-link">
-                <button on:click={logout}>Logout</button>
+{#if loading}
+    <div class="loader-layout">
+        <div class="loader" />
+        <h1>Wait Master 🙏🏻</h1>
+    </div>
+{:else}
+    <div class="layout">
+        <nav>
+            <div class="logo">
+                <h1>👑 TypeMaster</h1>
             </div>
-        {:else}
-            <div class="nav-link">
-                <a href="/login">Login</a>
+            {#if auth}
+                <div class="nav-link">
+                    <button on:click={logout}
+                        ><i
+                            class="fa-solid fa-right-to-bracket icon-flipped"
+                        /></button
+                    >
+                </div>
+            {:else}
+                <div class="nav-link">
+                    <a href="/login"
+                        ><i class="fa-solid fa-right-to-bracket" /></a
+                    >
+                </div>
+            {/if}
+        </nav>
+        <main>
+            <div class="user">
+                <h3>{message}</h3>
             </div>
-        {/if}
-    </nav>
-    <main>
-        <div class="user">
-            <h3>{message}</h3>
-        </div>
 
-        {#if game !== "game over"}
-            <div class="game" data-game={game}>
-                <input
-                    bind:this={inputEl}
-                    bind:value={typedLetter}
-                    on:input={updateGameState}
-                    on:keydown={handleKeyDown}
-                    class="input"
-                    type="text"
-                />
+            {#if game !== "game over"}
+                <div class="game" data-game={game}>
+                    <input
+                        bind:this={inputEl}
+                        bind:value={typedLetter}
+                        on:input={updateGameState}
+                        on:keydown={handleKeyDown}
+                        class="input"
+                        type="text"
+                    />
 
-                <div class="time">{seconds}</div>
+                    <div class="time">{seconds}</div>
 
-                {#key toggleReset}
-                    <div in:blur|local bind:this={wordsEl} class="words">
-                        {#each words as word}
-                            <span class="word">
-                                {#each word as letter}
-                                    <span class="letter">{letter}</span>
-                                {/each}
-                            </span>
-                        {/each}
+                    {#key toggleReset}
+                        <div in:blur|local bind:this={wordsEl} class="words">
+                            {#each words as word}
+                                <span class="word">
+                                    {#each word as letter}
+                                        <span class="letter">{letter}</span>
+                                    {/each}
+                                </span>
+                            {/each}
 
-                        <div bind:this={caretEl} class="caret" />
+                            <div bind:this={caretEl} class="caret" />
+                        </div>
+                    {/key}
+
+                    <div class="reset">
+                        <button on:click={resetGame} aria-label="reset">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                width="24"
+                                height="24"
+                                stroke-width="1.5"
+                                stroke="currentColor"
+                                fill="none"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M15 15l6-6m0 0l-6-6m6 6H9a6 6 0 000 12h3"
+                                />
+                            </svg>
+                        </button>
                     </div>
-                {/key}
-
-                <div class="reset">
-                    <button on:click={resetGame} aria-label="reset">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            width="24"
-                            height="24"
-                            stroke-width="1.5"
-                            stroke="currentColor"
-                            fill="none"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M15 15l6-6m0 0l-6-6m6 6H9a6 6 0 000 12h3"
-                            />
-                        </svg>
-                    </button>
                 </div>
-            </div>
-        {/if}
+            {/if}
 
-        {#if game === "game over"}
-            <div in:blur class="results">
-                <div>
-                    <p class="title">WPM</p>
-                    <div class="score">{Math.trunc($wordsPerMinute)}</div>
+            {#if game === "game over"}
+                <div in:blur class="results">
+                    <div>
+                        <p class="title">WPM</p>
+                        <div class="score">{Math.trunc($wordsPerMinute)}</div>
+                    </div>
+
+                    <div>
+                        <p class="title">Accuracy</p>
+                        <div class="score">{Math.trunc($accuracy)}%</div>
+                    </div>
+
+                    <button on:click={resetGame} class="play">Play Again</button
+                    >
                 </div>
-
-                <div>
-                    <p class="title">Accuracy</p>
-                    <div class="score">{Math.trunc($accuracy)}%</div>
-                </div>
-
-                <button on:click={resetGame} class="play">Play Again</button>
-            </div>
-        {/if}
-    </main>
-</div>
+            {/if}
+        </main>
+    </div>
+{/if}
 
 <style lang="scss">
     h1 {
@@ -360,6 +379,13 @@
         letter-spacing: 2px;
     }
 
+    .icon-flipped {
+        transform: scaleX(-1);
+        -moz-transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
+        -ms-transform: scaleX(-1);
+    }
+    
     .layout {
         height: 100%;
         display: grid;
@@ -379,6 +405,10 @@
         font-size: 20px;
         padding: 0 5px;
         cursor: pointer;
+    }
+
+    .nav-link button {
+        font-size: 18px;
     }
 
     .game {
@@ -471,5 +501,43 @@
 
     .user {
         margin: 60px 0;
+    }
+
+    .loader {
+        border: 16px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 16px solid #234c67;
+        width: 90px;
+        height: 90px;
+        -webkit-animation: spin 2s linear infinite;
+        animation: spin 2s linear infinite;
+    }
+
+    .loader-layout {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    /* Safari */
+    @-webkit-keyframes spin {
+        0% {
+            -webkit-transform: rotate(0deg);
+        }
+        100% {
+            -webkit-transform: rotate(360deg);
+        }
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
     }
 </style>
