@@ -8,11 +8,13 @@
 
     const submit = async () => {
         if (!name || !password) {
+
             errorMessage = "Please fill in all fields!";
             return; 
         }
 
         errorMessage = "";
+
         try {
             const response = await fetch("http://localhost:8000/api/login", {
                 method: "POST",
@@ -23,6 +25,7 @@
                     password,
                 }),
             });
+
             if (response.ok) {
                 await goto("/");
                 // Jika login berhasil, navigasi ke halaman lain di sini (contoh: "/dashboard")
@@ -33,9 +36,11 @@
             }
         } catch (error) {
             errorMessage = "An error occurs when trying to log in";
+
         }
     };
 </script>
+
 
 <div class="container" id="container">
     <div class="form-container sign-in">
@@ -73,6 +78,7 @@
                 <p>Or <a href="/">Just Play!</a></p>
             </div>
         </form>
+
     </div>
     <div class="toggle-container">
         <video playsinline autoplay muted loop>
@@ -86,6 +92,7 @@
         font-family: "Lexand Deca", sans-serif;
     }
 
+
     .typing-animation p {
         letter-spacing: 0.5px;
         padding: 20px 0;
@@ -93,6 +100,7 @@
         font-weight: 500;
         font-family: "Roboto Mono", monospace;
     }
+
 
     .sign-in button {
         background-color: #45346c;
@@ -113,6 +121,7 @@
         align-items: center;
         justify-content: center;
         flex-direction: column;
+
         padding: 0 40px;
         height: 100%;
     }
@@ -126,6 +135,7 @@
         border-radius: 8px;
         width: 70%;
         outline: none;
+
     }
 
     .form-container {
@@ -202,5 +212,10 @@
         margin: 10px 0;
         color: red;
         font-weight: 600;
+    }
+
+    .error {
+        color: red;
+        font-size: 14px;
     }
 </style>
