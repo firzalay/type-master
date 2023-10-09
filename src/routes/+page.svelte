@@ -410,7 +410,7 @@
         color: var(--fg-200);
         text-decoration: none;
         font-size: 20px;
-        padding: 0 5px;
+        padding: 0 10px;
         cursor: pointer;
         opacity: 0.4;
         transition: all 0.3s ease;

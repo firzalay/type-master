@@ -8,25 +8,23 @@
 * {
     margin: 0;
     padding: 0;
-
     box-sizing: border-box;
 }
 
-body {
+.containers {
     min-height: 100vh;
-    background-color: hsl(220 20% 14%);
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: hsl(220 20% 14%);
     font-family: 'Lexend Deca', sans-serif;
-
 }
 
 main.table {
     width: 82vw;
     height: 90vh;
     background-color: var(--lp);
-
+    font-family: 'Lexend Deca', sans-serif;
     backdrop-filter: blur(7px);
     box-shadow: 0 .4rem .8rem #0005;
     border-radius: .8rem;
@@ -49,6 +47,8 @@ main.table {
     color: #ebebe6;
     font-size: 25px;
     transition: .5s;
+    font-family: 'Lexend Deca', sans-serif;
+
 }
 
 .table__header a:hover {
@@ -102,6 +102,8 @@ main.table {
     border-radius: .6rem;
     overflow: auto;
     overflow: overlay;
+    font-family: 'Lexend Deca', sans-serif;
+
 }
 
 .table__body::-webkit-scrollbar {
