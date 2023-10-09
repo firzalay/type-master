@@ -71,7 +71,11 @@
                         {#each $scores as score, i}
                             <tr>
                                 <td> {i + 1} </td>
-                                <td>{score.name}</td>
+                                {#if i === 0}
+                                    <td>{score.name} 👑</td>
+                                {:else}
+                                    <td>{score.name}</td>
+                                {/if}
                                 <td> {score.wpm_score} WPM </td>
                                 <td> {score.accuracy} % </td>
                             </tr>
