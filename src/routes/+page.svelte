@@ -7,7 +7,7 @@
     import { goto } from "$app/navigation";
     import "../styles/app.scss";
 
-    const sendWPMToServer = async (wpm) => {
+    const sendScoreToServer = async (wpm, acc) => {
         const currentUser = $authenticatedUser;
 
         await fetch("http://localhost:8000/api/scores", {
@@ -16,6 +16,7 @@
             body: JSON.stringify({
                 user_id: currentUser.id,
                 wpm_score: wpm,
+                accuracy: acc,
             }),
             credentials: "include",
         });
@@ -91,7 +92,7 @@
         $wordsPerMinute = getWordsPerMinute();
         $accuracy = getAccuracy();
         if ($authenticatedUser) {
-            sendWPMToServer($wordsPerMinute);
+            sendScoreToServer($wordsPerMinute, $accuracy);
         }
     }
 
