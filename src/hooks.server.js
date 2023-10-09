@@ -4,6 +4,7 @@ export const handle = async ({ event, resolve }) => {
     if (event.route.id?.startsWith("/login")) { 
         throw redirect(302, "/"); 
     }
+    
     const theme = event.cookies.get("siteTheme");
 
     const response = await resolve(event, {

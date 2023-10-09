@@ -1,5 +1,6 @@
 import { json } from '@sveltejs/kit'
 
+
 import english from './english/english.json'
 
 export const GET = ({ url }) => {

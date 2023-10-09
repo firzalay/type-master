@@ -1,15 +1,30 @@
 <script>
     import { onMount } from "svelte";
     import { authenticated } from "../stores/auth";
+    import { authenticatedUser } from "../stores/user";
     import { blur } from "svelte/transition";
     import { tweened } from "svelte/motion";
     import { goto } from "$app/navigation";
     import "../styles/app.scss";
 
+    const sendWPMToServer = async (wpm) => {
+        const currentUser = $authenticatedUser;
+
+        await fetch("http://localhost:8000/api/scores", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                user_id: currentUser.id,
+                wpm_score: wpm,
+            }),
+            credentials: "include",
+        });
+    };
+
     let message = "";
 
     let game = "waiting for input";
-    let seconds = 60;
+    let seconds = 10;
     let typedLetter = "";
 
     let words = [];
@@ -45,7 +60,7 @@
         setGameState("waiting for input");
         getWords(100);
 
-        seconds = 60;
+        seconds = 10;
         typedLetter = "";
         wordIndex = 0;
         letterIndex = 0;
@@ -75,6 +90,9 @@
     function getResults() {
         $wordsPerMinute = getWordsPerMinute();
         $accuracy = getAccuracy();
+        if ($authenticatedUser) {
+            sendWPMToServer($wordsPerMinute);
+        }
     }
 
     function updateGameState() {
@@ -119,7 +137,6 @@
         if (letterIndex > 0) {
             letterIndex -= 1; // Move back one letter
             letterEl = wordsEl.children[wordIndex].children[letterIndex]; // Update current letter element
-            console.log(letterEl);
             typedLetter = "";
             letterEl.dataset.letter = "";
         }
@@ -236,6 +253,8 @@
 
             message = `Hello ${content.name}`;
             authenticated.set(true);
+
+            authenticatedUser.set(content);
         } catch (e) {
             message = "You are not logged in";
             authenticated.set(false);
