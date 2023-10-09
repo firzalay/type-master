@@ -193,8 +193,10 @@
     }
 
     function startGame() {
-        setGameState("in progress");
-        setGameTimer();
+        if (event.key.match(/^[A-Za-z0-9]$/)) {
+            setGameState("in progress");
+            setGameTimer();
+        }
     }
 
     function setGameState(state) {
