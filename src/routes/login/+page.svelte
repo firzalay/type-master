@@ -203,4 +203,9 @@
         color: red;
         font-weight: 600;
     }
+
+    .error {
+        color: red;
+        font-size: 14px;
+    }
 </style>
