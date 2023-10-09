@@ -1,5 +1,5 @@
 <script>
-    import { onMount } from "svelte";
+    import { onMount, afterUpdate } from "svelte";
     import { authenticated } from "../stores/auth";
     import { authenticatedUser } from "../stores/user";
     import { blur } from "svelte/transition";
@@ -245,8 +245,8 @@
     let loading = true;
 
     onMount(async () => {
-        getWords(100);
         focusInput();
+        getWords(100);
 
         try {
             const response = await fetch("http://localhost:8000/api/user", {
@@ -265,6 +265,10 @@
         } finally {
             loading = false;
         }
+    });
+
+    afterUpdate(() => {
+        focusInput();
     });
 
     let auth = false;
@@ -481,7 +485,7 @@
         position: absolute;
         height: 1.8rem;
         top: 0;
-        border-right: 1px solid var(--primary);
+        border-right: 1px solid red;
         animation: caret 1s infinite;
         transition: all 0.2s ease;
     }
