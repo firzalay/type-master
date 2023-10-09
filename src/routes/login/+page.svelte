@@ -1,11 +1,10 @@
 <script>
+    import SvelteTypedJs from "svelte-typed-js";
     import { goto } from "$app/navigation";
 
     let name = "";
     let password = "";
 
-
-    
     const submit = async () => {
         await fetch("http://localhost:8000/api/login", {
             method: "POST",
@@ -16,61 +15,147 @@
                 password,
             }),
         });
-        
+
         await goto("/");
     };
 </script>
 
-<form on:submit|preventDefault={submit} action="">
-    <h1>Login Form</h1>
-    <div class="main">
-        <div class="name">
-            <label for="">Name</label>
-            <input bind:value={name} type="name" name="" id="" />
-        </div>
-
-        <div class="password">
-            <label for="">Password</label>
-            <input bind:value={password} type="password" name="" id="" />
-        </div>
+<div class="container" id="container">
+    <div class="form-container sign-in">
+        <form on:submit|preventDefault={submit} >
+            <h1>Login Page</h1>
+            <SvelteTypedJs
+                strings={["Type Master"]}
+                typeSpeed="10"
+                backSpeed="10"
+                loop="true"
+            >
+                <p class="typing-animation">
+                    Become The Best <span class="typing" /> 👑
+                </p>
+            </SvelteTypedJs>
+            <input bind:value={name} type="name" placeholder="Name" />
+            <input bind:value={password} type="password" placeholder="Password" />
+            <button>Log In</button>
+            <div class="register-p">
+                <p>
+                    Dont have an account? <a href="/register">Register First!</a
+                    >
+                </p>
+            </div>
+        </form>
     </div>
-
-    <p>Dont have an account? <a href="/register">Register First!</a></p>
-
-    <button type="submit">Submit</button>
-</form>
+    <div class="toggle-container">
+        <video playsinline autoplay muted loop>
+            <source src="logos.mp4" type="video/mp4" />
+        </video>
+    </div>
+</div>
 
 <style>
-    form {
+    .container {
+        font-family: "Lexand Deca", sans-serif;
+    }
+
+    .sign-in p {
+        letter-spacing: 0.5px;
+        padding: 20px 0;
+        font-size: 20px;
+        font-weight: 500;
+        font-family: "Roboto Mono", monospace;
+    }
+
+    .sign-in button {
+        background-color: #45346c;
+        color: #e2e1e1;
+        font-size: 12px;
+        padding: 10px 45px;
+        border: 1px solid transparent;
+        border-radius: 8px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        margin-top: 10px;
+        cursor: pointer;
+    }
+
+    .container form {
         display: flex;
-        justify-content: center;
         align-items: center;
+        justify-content: center;
         flex-direction: column;
-
-        margin: 20px 0;
+        padding: 0 40px;
+        height: 100%;
     }
 
-    .main {
-        margin-top: 30px;
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
+    .container input {
+        background-color: #eee;
+        border: none;
+        margin: 8px 0;
+        padding: 10px 15px;
+        font-size: 13px;
+        border-radius: 8px;
+        width: 70%;
+        outline: none;
     }
 
-    button {
-        margin-top: 20px;
-        background-color: black;
+    .form-container {
+        position: absolute;
+        top: 0;
+        height: 100%;
+        transition: all 0.6s ease-in-out;
+    }
+
+    .sign-in {
+        left: 0;
+        width: 50%;
+        z-index: 2;
+    }
+
+    @keyframes move {
+        0%,
+        49.99% {
+            opacity: 0;
+            z-index: 1;
+        }
+        50%,
+        100% {
+            opacity: 1;
+            z-index: 5;
+        }
+    }
+
+    .toggle-container {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 50%;
+        height: 100%;
+        overflow: hidden;
+        transition: all 0.6s ease-in-out;
+        /* border-radius: 150px 0 0 100px; */
+        z-index: 1000;
+    }
+
+    .sign-in h1 {
         color: white;
-        padding: 10px;
-        border-radius: 5px;
-        opacity: 1;
     }
 
-    p {
-        margin-top: 20px;
+    video {
+        object-fit: cover;
+        width: 50vw;
+        height: 100vh;
+        position: fixed;
     }
 
-    p a {
+    .register-p p {
+        font-family: "Lexend Deca", sans-serif;
+        font-size: 16px;
+    }
+
+    .register-p a {
         color: white;
+        text-decoration: none;
+        font-weight: bold;
     }
 </style>

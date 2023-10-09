@@ -14,5 +14,8 @@
 		"svelte": "^4.0.5",
 		"vite": "^4.4.2"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"svelte-typed-js": "^1.0.3"
+	}
 }
