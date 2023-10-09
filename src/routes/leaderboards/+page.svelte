@@ -1,5 +1,5 @@
 <script>
-    import { onMount } from "svelte";
+    import { createEventDispatcher, onMount } from "svelte";
     import "../../styles/leaderboard.css";
     import { scores } from "../../stores/scores"; 
     const fetchTopScores = async () => {
@@ -44,66 +44,14 @@
                 </tr>
             </thead>
             <tbody>
+                {#each $scores as score}
                 <tr>
                     <td> 1 </td>
-                    <td> Zinzu Chan Lee</td>
-                    <td> Seoul </td>
-                    <td> 17 Dec, 2022 </td>     
+                    <td>{ score.name }</td>
+                    <td> { score.wpm_score } WPM </td>
+                    <td> { score.accuracy } % </td>     
                 </tr>
-                <tr>
-                    <td> 2 </td>
-                    <td> Jeet Saru </td>
-                    <td> Kathmandu </td>
-                    <td> 27 Aug, 2023 </td>
-                </tr>
-                <tr>
-                    <td> 3 </td>
-                    <td> Jeet Saru </td>
-                    <td> Kathmandu </td>
-                    <td> 27 Aug, 2023 </td>
-                </tr>
-                <tr>
-                    <td> 4 </td>
-                    <td> Jeet Saru </td>
-                    <td> Kathmandu </td>
-                    <td> 27 Aug, 2023 </td>
-                </tr>
-                <tr>
-                    <td> 5 </td>
-                    <td> Jeet Saru </td>
-                    <td> Kathmandu </td>
-                    <td> 27 Aug, 2023 </td>
-                </tr>
-                <tr>
-                    <td> 6 </td>
-                    <td> Jeet Saru </td>
-                    <td> Kathmandu </td>
-                    <td> 27 Aug, 2023 </td>
-                </tr>
-                <tr>
-                    <td> 7 </td>
-                    <td> Jeet Saru </td>
-                    <td> Kathmandu </td>
-                    <td> 27 Aug, 2023 </td>
-                </tr>
-                <tr>
-                    <td> 8 </td>
-                    <td> Jeet Saru </td>
-                    <td> Kathmandu </td>
-                    <td> 27 Aug, 2023 </td>
-                </tr>
-                <tr>
-                    <td> 9 </td>
-                    <td> Jeet Saru </td>
-                    <td> Kathmandu </td>
-                    <td> 27 Aug, 2023 </td>
-                </tr>
-                <tr>
-                    <td> 10 </td>
-                    <td> Jeet Saru </td>
-                    <td> Kathmandu </td>
-                    <td> 27 Aug, 2023 </td>
-                </tr>
+                {/each}
             </tbody>
         </table>
     </section>
