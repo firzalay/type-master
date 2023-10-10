@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap');
 
 :root {
-    --primary: hsl(220 20% 14%);
     --lp: #101627;
 }
 
@@ -9,10 +8,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-
-body {
-    background-color: hsl(220 20% 14%);
 }
 
 
