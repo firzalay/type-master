@@ -4,9 +4,23 @@
 
     let name = "";
     let password = "";
+    let errorMessage = "";
 
     const submit = async () => {
-        await fetch("http://localhost:8000/api/register", {
+        if (!name || !password) {
+            errorMessage = "Please fill in all fields!";
+            return; 
+        }
+
+        errorMessage="";
+
+        const isNameTaken = await checkNameAvailability(name);
+        if (isNameTaken) {
+            errorMessage = "Name is already taken. Please choose another name.";
+            return;
+        }
+
+        const response = await fetch("http://localhost:8000/api/register", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -15,13 +29,26 @@
             }),
         });
 
-        await goto("/login");
+        if (response.ok) {
+            await goto("/login");
+        } else {
+            errorMessage = "Registration failed. Please try again.";
+        }
+    };
+
+    // Function to check if the name is already taken
+    const checkNameAvailability = async (name) => {
+        const response = await fetch(
+            `http://localhost:8000/api/check-name?name=${name}`
+        );
+        const data = await response.json();
+        return data.nameTaken;
     };
 </script>
 
 <div class="container" id="container">
     <div class="form-container sign-in">
-        <form on:submit|preventDefault={submit} >
+        <form on:submit|preventDefault={submit}>
             <h1>Register Page</h1>
             <SvelteTypedJs
                 strings={["Type Master"]}
@@ -34,12 +61,20 @@
                 </p>
             </SvelteTypedJs>
             <input bind:value={name} type="name" placeholder="Name" />
-            <input bind:value={password} type="password" placeholder="Password" />
+            <input
+                bind:value={password}
+                type="password"
+                placeholder="Password"
+            />
+            {#if errorMessage}
+            <div class="error">
+                <p class="error">{errorMessage}</p>
+            </div>
+            {/if}
             <button>Register</button>
             <div class="register-p">
                 <p>
-                    Already have an account? <a href="/login">Login Now!</a
-                    >
+                    Already have an account? <a href="/login">Login Now!</a>
                 </p>
             </div>
         </form>
@@ -156,5 +191,17 @@
         color: white;
         text-decoration: none;
         font-weight: bold;
+    }
+
+    .error p{
+        font-family: "Lexend Deca", sans-serif;
+        margin: 10px 0;
+        color: red;
+        font-weight: 600;
+    }
+
+    .error p{
+        color: red;
+        font-size: 14px;
     }
 </style>
