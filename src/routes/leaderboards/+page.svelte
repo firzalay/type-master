@@ -46,7 +46,7 @@
             <tbody>
                 <tr>
                     <td> 1 </td>
-                    <td> Zinzu Chan Lee</td>
+                    <td> Zinzu Chan Lee👑</td>
                     <td> Seoul </td>
                     <td> 17 Dec, 2022 </td>     
                 </tr>
