@@ -1,7 +1,7 @@
 import { redirect } from "@sveltejs/kit";
 
 export const handle = async ({ event, resolve }) => {
-    if (event.route.id?.startsWith("/login")) { 
+    if (event.route.id?.startsWith("/login") || event.route.id?.startsWith("/register")) { 
         throw redirect(302, "/"); 
     }
     
