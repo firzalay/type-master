@@ -7,20 +7,7 @@
     import { goto } from "$app/navigation";
     import "../styles/app.scss";
 
-    const sendScoreToServer = async (wpm, acc) => {
-        const currentUser = $authenticatedUser;
-
-        await fetch("http://localhost:8000/api/scores", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                user_id: currentUser.id,
-                wpm_score: wpm,
-                accuracy: acc,
-            }),
-            credentials: "include",
-        });
-    };
+    let loading = true;
 
     let message = "";
 
@@ -43,18 +30,6 @@
     let inputEl;
     let caretEl;
 
-    const logout = async () => {
-        await fetch("http://localhost:8000/api/logout", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            credentials: "include",
-        });
-
-        await goto("/");
-
-        location.reload();
-    };
-
     function resetGame() {
         toggleReset = !toggleReset;
 
@@ -76,7 +51,7 @@
     function getWordsPerMinute() {
         const word = 5;
         const minutes = 0.5;
-        return Math.floor((correctLetters / word) / minutes);
+        return Math.floor(correctLetters / word / minutes);
     }
 
     function getAccuracy() {
@@ -125,7 +100,7 @@
             }
         } else {
             letterEl.dataset.letter = "incorrect";
-            letterEl.style.color = "red"; 
+            letterEl.style.color = "red";
         }
     }
 
@@ -272,7 +247,32 @@
         }
     }
 
-    let loading = true;
+    const sendScoreToServer = async (wpm, acc) => {
+        const currentUser = $authenticatedUser;
+
+        await fetch("http://localhost:8000/api/scores", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                user_id: currentUser.id,
+                wpm_score: wpm,
+                accuracy: acc,
+            }),
+            credentials: "include",
+        });
+    };
+
+    const logout = async () => {
+        await fetch("http://localhost:8000/api/logout", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+        });
+
+        await goto("/");
+
+        location.reload();
+    };
 
     onMount(async () => {
         focusInput();
