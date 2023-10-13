@@ -25,7 +25,7 @@
     let message = "";
 
     let game = "waiting for input";
-    let seconds = 10;
+    let seconds = 60;
     let typedLetter = "";
 
     let words = [];
@@ -59,9 +59,9 @@
         toggleReset = !toggleReset;
 
         setGameState("waiting for input");
-        getWords(100);
+        getWords(300);
 
-        seconds = 10;
+        seconds = 60;
         typedLetter = "";
         wordIndex = 0;
         letterIndex = 0;
@@ -76,7 +76,7 @@
     function getWordsPerMinute() {
         const word = 5;
         const minutes = 0.5;
-        return Math.floor(correctLetters / word / minutes);
+        return Math.floor((correctLetters / word) / minutes);
     }
 
     function getAccuracy() {
@@ -276,7 +276,7 @@
 
     onMount(async () => {
         focusInput();
-        getWords(100);
+        getWords(300);
 
         try {
             const response = await fetch("http://localhost:8000/api/user", {
