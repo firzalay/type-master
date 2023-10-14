@@ -9,10 +9,10 @@
     const submit = async () => {
         if (!name || !password) {
             errorMessage = "Please fill in all fields!";
-            return; 
+            return;
         }
 
-        errorMessage="";
+        errorMessage = "";
 
         const isNameTaken = await checkNameAvailability(name);
         if (isNameTaken) {
@@ -67,9 +67,9 @@
                 placeholder="Password"
             />
             {#if errorMessage}
-            <div class="error">
-                <p class="error">{errorMessage}</p>
-            </div>
+                <div class="error">
+                    <p class="error">{errorMessage}</p>
+                </div>
             {/if}
             <button>Register</button>
             <div class="register-p">
@@ -193,14 +193,14 @@
         font-weight: bold;
     }
 
-    .error p{
+    .error p {
         font-family: "Lexend Deca", sans-serif;
         margin: 10px 0;
         color: red;
         font-weight: 600;
     }
 
-    .error p{
+    .error p {
         color: red;
         font-size: 14px;
     }
