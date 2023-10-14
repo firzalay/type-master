@@ -330,9 +330,6 @@
                 </div>
             {:else}
                 <div class="nav-link">
-                    <a href="/about">
-                        <i class="fa-solid fa-circle-info"></i>
-                    </a>
                     <a href="/leaderboards">
                         <i class="fa-solid fa-crown" />
                     </a>
