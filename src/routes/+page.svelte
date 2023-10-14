@@ -30,6 +30,9 @@
     let inputEl;
     let caretEl;
 
+    let startTime = 0;
+    let endTime = 0;
+
     function resetGame() {
         toggleReset = !toggleReset;
 
@@ -48,29 +51,38 @@
         focusInput();
     }
 
-    function getWordsPerMinute() {
-        const word = 5;
-        const minutes = 0.5;
-        return Math.floor(correctLetters / word / minutes);
-    }
-
-    function getAccuracy() {
-        const totalLetters = getTotalLetters(words);
-        return Math.floor((correctLetters / totalLetters) * 100);
-    }
-
     function getTotalLetters(words) {
         return words.reduce((count, word) => count + word.length, 0);
     }
 
     function getResults() {
-        $wordsPerMinute = getWordsPerMinute();
-        $accuracy = getAccuracy();
+        endTime = new Date().getTime(); 
+        const elapsedTimeInMinutes = (endTime - startTime) / (1000 * 60); 
+        const wpm = getWordsPerMinute(correctLetters, elapsedTimeInMinutes);
+        $wordsPerMinute = wpm;
+        const acc = getAccuracy();
+        $accuracy = acc;
         if ($authenticatedUser) {
-            sendScoreToServer($wordsPerMinute, $accuracy);
+            sendScoreToServer(wpm, acc);
         }
     }
 
+    function getWordsPerMinute(correctCharacters, timeInMinutes) {
+        const word = 5;
+        return Math.floor(correctCharacters / word / timeInMinutes);
+    }
+
+    function getAccuracy() {
+        const totalLetters = getTotalLetters(words);    
+        const expectedText = words.join(" ");
+        const typedText = inputEl.value;
+        for (let i = 0; i < expectedText.length && i < typedText.length; i++) {
+            if (expectedText[i] === typedText[i]) {
+                correctLetters++;
+            }
+        }
+        return Math.floor((correctLetters / expectedText.length) * 300);
+    }
     function updateGameState() {
         setLetter();
         checkLetter();
@@ -191,6 +203,7 @@
     function startGame() {
         if (event.key.match(/^[A-Za-z0-9]$/)) {
             setGameState("in progress");
+            startTime = new Date().getTime();
             setGameTimer();
         }
     }
@@ -210,8 +223,8 @@
             }
 
             if (seconds === 0) {
-                setGameState("game over");
                 getResults();
+                setGameState("game over");
             }
         }
         const interval = setInterval(gameTimer, 1000);
@@ -314,7 +327,7 @@
     <div class="layout">
         <nav>
             <div class="logo">
-                <img src="logo.png" alt="">
+                <img src="logo.png" alt="" />
                 <h1>TypeMaster</h1>
             </div>
             {#if auth}
@@ -391,7 +404,6 @@
                         </button>
                     </div>
                 </div>
-               
             {/if}
 
             {#if game === "game over"}
@@ -413,13 +425,22 @@
         </main>
         <div class="social-media">
             <div class="social-icon">
-                <a href="https://github.com/firzalay/type-master" target="_blank">Discord</a><i class="fa-brands fa-discord"></i>
+                <a
+                    href="https://github.com/firzalay/type-master"
+                    target="_blank">Discord</a
+                ><i class="fa-brands fa-discord" />
             </div>
             <div class="social-icon">
-                <a href="https://github.com/firzalay/type-master" target="_blank">Github</a><i class="fa-brands fa-github"></i>
+                <a
+                    href="https://github.com/firzalay/type-master"
+                    target="_blank">Github</a
+                ><i class="fa-brands fa-github" />
             </div>
             <div class="social-icon">
-                <a href="https://github.com/firzalay/type-master" target="_blank">Instagram</a><i class="fa-brands fa-instagram"></i>
+                <a
+                    href="https://github.com/firzalay/type-master"
+                    target="_blank">Instagram</a
+                ><i class="fa-brands fa-instagram" />
             </div>
         </div>
     </div>
@@ -610,7 +631,7 @@
         }
     }
 
-    .logo h1{
+    .logo h1 {
         margin-left: 3.5em;
         margin-top: 0.8em;
     }
@@ -624,13 +645,14 @@
 
     .social-media {
         display: flex;
-        justify-content:center;
+        justify-content: center;
         align-items: center;
         gap: 2em;
     }
 
-    .social-icon a,i {
-        font-family: 'Lexand Deca' sans-serif;
+    .social-icon a,
+    i {
+        font-family: "Lexand Deca" sans-serif;
         text-decoration: none;
         color: rgb(236, 229, 229);
         padding: 5px;
@@ -645,4 +667,3 @@
         opacity: 1;
     }
 </style>
-
