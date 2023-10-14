@@ -391,6 +391,7 @@
                         </button>
                     </div>
                 </div>
+               
             {/if}
 
             {#if game === "game over"}
@@ -410,6 +411,17 @@
                 </div>
             {/if}
         </main>
+        <div class="social-media">
+            <div class="social-icon">
+                <a href="" target="_blank">Discord</a><i class="fa-brands fa-discord"></i>
+            </div>
+            <div class="social-icon">
+                <a href="https://github.com/firzalay/type-master" target="_blank">Github</a><i class="fa-brands fa-github"></i>
+            </div>
+            <div class="social-icon">
+                <a href="" target="_blank">Instagram</a><i class="fa-brands fa-instagram"></i>
+            </div>
+        </div>
     </div>
 {/if}
 
@@ -609,4 +621,26 @@
         width: 130px;
         height: 130px;
     }
+
+    .social-media {
+        display: flex;
+        gap: 1em;
+    }
+
+    .social-icon a,i {
+        font-family: 'Lexand Deca' sans-serif;
+        text-decoration: none;
+        color: var(--fg-200);
+        padding: 5px;
+    }
+
+    .social-icon {
+        opacity: 0.5;
+        transition: all 0.3s;
+    }
+
+    .social-icon:hover {
+        opacity: 1;
+    }
+
 </style>
