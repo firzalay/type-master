@@ -2,6 +2,8 @@
     import { onMount } from "svelte";
     import "../../styles/leaderboard.css";
     import { scores } from "../../stores/scores";
+    import "../../styles/app.scss";
+
 
     let loading = true;
 
@@ -107,8 +109,11 @@
         gap: 2rem;
     }
 
-    .loader-layout h1 {
-        color: white;
+    h1 {
+        font-family: "Lexend Deca", sans-serif;
+        font-size: 1.8rem;
+        color: hsl(220 20% 80%);
+        letter-spacing: 2px;
     }
 
     /* Safari */
