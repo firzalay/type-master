@@ -330,6 +330,9 @@
                 </div>
             {:else}
                 <div class="nav-link">
+                    <a href="/about">
+                        <i class="fa-solid fa-circle-info"></i>
+                    </a>
                     <a href="/leaderboards">
                         <i class="fa-solid fa-crown" />
                     </a>
@@ -413,13 +416,13 @@
         </main>
         <div class="social-media">
             <div class="social-icon">
-                <a href="" target="_blank">Discord</a><i class="fa-brands fa-discord"></i>
+                <a href="https://github.com/firzalay/type-master" target="_blank">Discord</a><i class="fa-brands fa-discord"></i>
             </div>
             <div class="social-icon">
                 <a href="https://github.com/firzalay/type-master" target="_blank">Github</a><i class="fa-brands fa-github"></i>
             </div>
             <div class="social-icon">
-                <a href="" target="_blank">Instagram</a><i class="fa-brands fa-instagram"></i>
+                <a href="https://github.com/firzalay/type-master" target="_blank">Instagram</a><i class="fa-brands fa-instagram"></i>
             </div>
         </div>
     </div>
@@ -457,7 +460,7 @@
         color: var(--fg-200);
         text-decoration: none;
         font-size: 20px;
-        padding: 0 10px;
+        padding: 0 5px;
         cursor: pointer;
         opacity: 0.4;
         transition: all 0.3s ease;
@@ -624,13 +627,15 @@
 
     .social-media {
         display: flex;
-        gap: 1em;
+        justify-content:center;
+        align-items: center;
+        gap: 2em;
     }
 
     .social-icon a,i {
         font-family: 'Lexand Deca' sans-serif;
         text-decoration: none;
-        color: var(--fg-200);
+        color: rgb(236, 229, 229);
         padding: 5px;
     }
 
