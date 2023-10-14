@@ -59,7 +59,7 @@
         return Math.floor((correctLetters / totalLetters) * 100);
     }
 
-    function getTotalLetters() {
+    function getTotalLetters(words) {
         return words.reduce((count, word) => count + word.length, 0);
     }
 
@@ -314,7 +314,8 @@
     <div class="layout">
         <nav>
             <div class="logo">
-                <h1>👑 TypeMaster</h1>
+                <img src="logo.png" alt="">
+                <h1>TypeMaster</h1>
             </div>
             {#if auth}
                 <div class="nav-link">
@@ -484,7 +485,6 @@
     .words {
         --line-height: 1em;
         --lines: 3;
-
         width: 100%;
         max-height: calc(var(--line-height) * var(--lines) * 1.42);
         display: flex;
@@ -596,5 +596,17 @@
         100% {
             transform: rotate(360deg);
         }
+    }
+
+    .logo h1{
+        margin-left: 3.5em;
+        margin-top: 0.8em;
+    }
+
+    .logo img {
+        position: absolute;
+        top: 10px;
+        width: 130px;
+        height: 130px;
     }
 </style>
