@@ -1,38 +1,25 @@
-# create-svelte
+[![](static/banner.jpg)]()
+<br />
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+![Svelte](https://img.shields.io/badge/Svelte-white?style=for-the-badge&logo=svelte)
+![SASS](https://img.shields.io/badge/SASS-hotpink.svg?style=for-the-badge&logo=SASS&logoColor=white)
+![Laravel](https://img.shields.io/badge/Laravel-white?style=for-the-badge&logo=Laravel)
 
-## Creating a project
+# About
 
-If you're seeing this, you've probably already done this step. Congrats!
+TypeMaster is a customizable [typing test](). platform. It comes with an account system to save your typing speed history. TypeMaster aims to mimic the natural typing experience during a typing test by displaying text prompts seamlessly and showing typed characters in real-time, offering valuable feedback on typos, speed, and accuracy.
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+# Features
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+- minimalist design
+- account system
+- leaderboard
+- cool caret
 
-## Developing
+# Discord community
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+On the [TypeMaster Discord server](https://discord.com/invite/SUQNj3Ch5g), we have a dedicated community for discussions, sharing experiences, and deepening knowledge about the TypeMaster typing game. Here, you can interact with fellow typing enthusiasts, share tips, and expand your network with individuals who share the same interest in improving typing skills.
 
-```bash
-npm run dev
+# Bug report or Feature request
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+If you encounter a bug or have a feature request, [send us an email](mailto:typemasterteam@gmail.com), or [join the Discord server](https://discord.com/invite/SUQNj3Ch5g).

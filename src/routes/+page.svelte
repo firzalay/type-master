@@ -73,7 +73,6 @@
     }
 
     function getAccuracy() {
-        const totalLetters = getTotalLetters(words);    
         const expectedText = words.join(" ");
         const typedText = inputEl.value;
         for (let i = 0; i < expectedText.length && i < typedText.length; i++) {
