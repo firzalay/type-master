@@ -419,7 +419,7 @@
                         <div class="score">{Math.trunc($accuracy)}%</div>
                     </div>
 
-                    <button on:click={resetGame} class="play">Play Again</button
+                    <button on:click={resetGame} class="play">Play Agains</button
                     >
                 </div>
             {/if}
