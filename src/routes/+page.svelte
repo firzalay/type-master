@@ -427,7 +427,7 @@
         <div class="social-media">
             <div class="social-icon">
                 <a
-                    href="https://discord.gg/sTUzKeZzac"
+                    href="https://discord.gg/kXRaxUsdEk"
                     target="_blank">Discord</a
                 ><i class="fa-brands fa-discord" />
             </div>
