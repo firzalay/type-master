@@ -427,7 +427,7 @@
         <div class="social-media">
             <div class="social-icon">
                 <a
-                    href="https://github.com/firzalay/type-master"
+                    href="https://discord.gg/sTUzKeZzac"
                     target="_blank">Discord</a
                 ><i class="fa-brands fa-discord" />
             </div>
@@ -439,7 +439,7 @@
             </div>
             <div class="social-icon">
                 <a
-                    href="https://github.com/firzalay/type-master"
+                    href="https://www.instagram.com/typemaster_/"
                     target="_blank">Instagram</a
                 ><i class="fa-brands fa-instagram" />
             </div>

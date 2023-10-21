@@ -30,9 +30,7 @@
             );
             if (response.ok) {
                 await goto("/");
-                // Jika login berhasil, navigasi ke halaman lain di sini (contoh: "/dashboard")
             } else {
-                // Tangani kesalahan dari server (misalnya, login gagal)
                 errorMessage =
                     "Login failed. Double check your name and password.";
             }
