@@ -20,7 +20,6 @@
                     method: "POST",
                     headers: { 
                         "Content-Type": "application/json",
-                        'Origin': 'http://localhost:5173/', 
                     },
                     credentials: "include",
                     body: JSON.stringify({
