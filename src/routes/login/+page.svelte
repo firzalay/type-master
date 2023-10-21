@@ -9,20 +9,26 @@
     const submit = async () => {
         if (!name || !password) {
             errorMessage = "Please fill in all fields!";
-            return; 
+            return;
         }
 
         errorMessage = "";
         try {
-            const response = await fetch("http://localhost:8000/api/login", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                credentials: "include",
-                body: JSON.stringify({
-                    name,
-                    password,
-                }),
-            });
+            const response = await fetch(
+                "https://typemaster.online/api/login",
+                {
+                    method: "POST",
+                    headers: { 
+                        "Content-Type": "application/json",
+                        'Origin': 'http://localhost:5173/', 
+                    },
+                    credentials: "include",
+                    body: JSON.stringify({
+                        name,
+                        password,
+                    }),
+                }
+            );
             if (response.ok) {
                 await goto("/");
                 // Jika login berhasil, navigasi ke halaman lain di sini (contoh: "/dashboard")
@@ -53,7 +59,13 @@
                     </p>
                 </div>
             </SvelteTypedJs>
-            <input bind:value={name} type="name" placeholder="Name" id="name" name="name" />
+            <input
+                bind:value={name}
+                type="name"
+                placeholder="Name"
+                id="name"
+                name="name"
+            />
             <input
                 bind:value={password}
                 type="password"
@@ -62,7 +74,7 @@
                 name="password"
             />
             {#if errorMessage}
-            <p class="error">{errorMessage}</p>
+                <p class="error">{errorMessage}</p>
             {/if}
             <button>Log In</button>
             <div class="register-p">

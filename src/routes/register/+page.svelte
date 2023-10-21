@@ -20,7 +20,7 @@
             return;
         }
 
-        const response = await fetch("http://localhost:8000/api/register", {
+        const response = await fetch("https://typemaster.online/api/register", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -39,7 +39,7 @@
     // Function to check if the name is already taken
     const checkNameAvailability = async (name) => {
         const response = await fetch(
-            `http://localhost:8000/api/check-name?name=${name}`
+            `https://typemaster.online/api/check-name?name=${name}`
         );
         const data = await response.json();
         return data.nameTaken;

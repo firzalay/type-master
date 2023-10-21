@@ -10,7 +10,7 @@
     const fetchTopScores = async () => {
         try {
             const response = await fetch(
-                "http://localhost:8000/api/top-scores",
+                "https://typemaster.online/api/top-scores",
                 {
                     method: "GET",
                     headers: { "Content-Type": "application/json" },
@@ -38,8 +38,6 @@
     onMount(async () => {
         await fetchTopScores();
     });
-
-    // style leaderboard end
 </script>
 
 <link

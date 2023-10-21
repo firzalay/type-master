@@ -56,8 +56,8 @@
     }
 
     function getResults() {
-        endTime = new Date().getTime(); 
-        const elapsedTimeInMinutes = (endTime - startTime) / (1000 * 60); 
+        endTime = new Date().getTime();
+        const elapsedTimeInMinutes = (endTime - startTime) / (1000 * 60);
         const wpm = getWordsPerMinute(correctLetters, elapsedTimeInMinutes);
         $wordsPerMinute = wpm;
         const acc = getAccuracy();
@@ -262,7 +262,7 @@
     const sendScoreToServer = async (wpm, acc) => {
         const currentUser = $authenticatedUser;
 
-        await fetch("http://localhost:8000/api/scores", {
+        await fetch("https://typemaster.online/api/scores", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -275,7 +275,7 @@
     };
 
     const logout = async () => {
-        await fetch("http://localhost:8000/api/logout", {
+        await fetch("https://typemaster.online/api/logout", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             credentials: "include",
@@ -291,8 +291,11 @@
         getWords(300);
 
         try {
-            const response = await fetch("http://localhost:8000/api/user", {
-                headers: { "Content-Type": "application/json" },
+            const response = await fetch("https://typemaster.online/api/user", {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Origin" : "http://localhost:5173/",
+                },
                 credentials: "include",
             });
 
