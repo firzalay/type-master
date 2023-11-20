@@ -240,16 +240,16 @@
         }
     }
 
-    function handleKeyDown() {
+    function handleKeyDown(event) {  
         if (event.code === "Space") {
-            event.preventDefault();
+                event.preventDefault();
 
-            if (game === "in progress") {
-                nextWord();
+                if (game === "in progress") {
+                    nextWord();
+                }
             }
-        }
 
-        if (event.code === "Backspace") {
+        if (event.key === "Backspace") {
             event.preventDefault();
             checkPrevLetter();
         }
@@ -419,16 +419,16 @@
                         <div class="score">{Math.trunc($accuracy)}%</div>
                     </div>
 
-                    <button on:click={resetGame} class="play">Play Agains</button
+                    <button on:click={resetGame} class="play"
+                        >Play Agains</button
                     >
                 </div>
             {/if}
         </main>
         <div class="social-media">
             <div class="social-icon">
-                <a
-                    href="https://discord.gg/kXRaxUsdEk"
-                    target="_blank">Discord</a
+                <a href="https://discord.gg/kXRaxUsdEk" target="_blank"
+                    >Discord</a
                 ><i class="fa-brands fa-discord" />
             </div>
             <div class="social-icon">
@@ -438,9 +438,8 @@
                 ><i class="fa-brands fa-github" />
             </div>
             <div class="social-icon">
-                <a
-                    href="https://www.instagram.com/typemaster_/"
-                    target="_blank">Instagram</a
+                <a href="https://www.instagram.com/typemaster_/" target="_blank"
+                    >Instagram</a
                 ><i class="fa-brands fa-instagram" />
             </div>
         </div>
