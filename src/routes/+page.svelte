@@ -54,8 +54,7 @@
     function getTotalLetters(words) {
         return words.reduce((count, word) => count + word.length, 0);
     }
-
-    function getResults() {
+function getResults() {
         endTime = new Date().getTime();
         const elapsedTimeInMinutes = (endTime - startTime) / (1000 * 60);
         const wpm = getWordsPerMinute(correctLetters, elapsedTimeInMinutes);
@@ -446,8 +445,7 @@
     </div>
 {/if}
 
-<style lang="scss">
-    h1 {
+<style> h1 {
         font-family: "Lexend Deca", sans-serif;
         font-size: 1.8rem;
         color: var(--fg-200);
